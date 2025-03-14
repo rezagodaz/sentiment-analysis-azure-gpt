@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Analysis</h1>
+        <textarea id="userInput" placeholder="Enter your text here..."></textarea>
+        <!--textarea id="userInput" value="Today is beautiful."></textarea-->
+        <button onclick="analyzeSentiment()">Submit</button>
+
+        <div id="results">
+            <h2>Results</h2>
+            <div class="result">
+                <h3>Azure Analysis</h3>
+                <p id="azureResult"></p>
+                <audio id="azureAudio" controls></audio>
+                <a id="downloadAudio" download="response.mp3">Download</a>
+            </div>
+            <div class="result">
+                <h3>GPT Response</h3>
+                <p id="gptResult"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function analyzeSentiment() {
+            let text = document.getElementById("userInput").value;
+            
+            fetch('/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("azureResult").innerText = `Sentiment: ${data.azure.sentiment}, Positive Score: ${data.azure.positive_score}
+                                                , Neutral Score: ${data.azure.neutral_score}, Negative Score: ${data.azure.negative_score}`;
+                //document.getElementById("azureAudio").src = data.azure.audio_url;
+                //document.getElementById("downloadAudio").href = data.azure.audio_url;
+                document.getElementById("gptResult").innerText = data.gpt.response;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
