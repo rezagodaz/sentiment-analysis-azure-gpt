@@ -210,7 +210,7 @@ def analyze():
         return jsonify({"error": "Audio generation failed"}), 500
 
     # Use only the filename, not the full path
-    audio_url = url_for('get_audio', filename=audio_filename, _external=True)
+    audio_url = url_for('get_audio', filename=audio_filename, _external=True, _scheme='https')
 
     return jsonify({
         "azure": azure_result,
@@ -221,7 +221,7 @@ def analyze():
 @app.route('/audio/<filename>')
 def get_audio(filename):
     """Serve the generated audio file."""
-    return send_from_directory("static/audio", filename, mimetype="audio/mp3")
+    return send_from_directory("static/audio", filename, mimetype="audio/wav")
 
 
 if __name__ == '__main__':
