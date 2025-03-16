@@ -37,6 +37,7 @@ logger = logging.getLogger(__name__)
 
 # Initialize Flask app
 app = Flask(__name__)
+app.config['PREFERRED_URL_SCHEME'] = 'https'
 
 def get_text_analytics_client():
     """
