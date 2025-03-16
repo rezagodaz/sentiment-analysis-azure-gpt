@@ -12,6 +12,7 @@ from openai import AzureOpenAI
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider  
 from azure.cognitiveservices.speech import SpeechConfig, SpeechSynthesizer, AudioConfig, audio, ResultReason, CancellationReason
 
+# Final version
 # According to best practices, keys should not be hardcoded into the code. 
 # Instead, they should be defined as environment variables for security purposes.
 # I'll send them to the right person
@@ -37,6 +38,7 @@ logger = logging.getLogger(__name__)
 
 # Initialize Flask app
 app = Flask(__name__)
+app.config['PREFERRED_URL_SCHEME'] = 'https'
 
 def get_text_analytics_client():
     """
