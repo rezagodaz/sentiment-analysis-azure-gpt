@@ -28,7 +28,8 @@ DEPLOYMENT_ID=os.getenv("DEPLOYMENT_NAME", "gpt-35-turbo")
 OPEN_AI_KEY=os.getenv('OPEN_AI_KEY')
 AZURE_TEXT2SPEECH_KEY=os.getenv('AZURE_TEXT2SPEECH_KEY')
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(),"static","audio")
+#UPLOAD_FOLDER = os.path.join(os.getcwd(),"static","audio")
+UPLOAD_FOLDER = os.path.join("home","site","wwwroot","audio_responses")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) 
 
 
@@ -204,13 +205,14 @@ def analyze():
     # Generate audio response
     audio_filename, audio_full_filename = generate_audio_response(azure_result['sentiment'], gpt_response)
 
+    
     print(f"Audio file path: {audio_full_filename}")
 
-    if not os.path.exists(audio_full_filename):
-        return jsonify({"error": "Audio generation failed"}), 500
+    # if not os.path.exists(audio_full_filename):
+    #     return jsonify({"error": "Audio generation failed"}), 500
 
     # Use only the filename, not the full path
-    audio_url = url_for('get_audio', filename=audio_filename, _external=True, _scheme='https')
+    audio_url = url_for('get_audio', filename=audio_filename, _external=True)#, _scheme='https')
 
     return jsonify({
         "azure": azure_result,
@@ -221,7 +223,7 @@ def analyze():
 @app.route('/audio/<filename>')
 def get_audio(filename):
     """Serve the generated audio file."""
-    return send_from_directory("static/audio", filename, mimetype="audio/wav")
+    return send_from_directory(UPLOAD_FOLDER, filename, mimetype="audio/wav")
 
 
 if __name__ == '__main__':
