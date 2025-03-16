@@ -29,7 +29,7 @@ OPEN_AI_KEY=os.getenv('OPEN_AI_KEY')
 AZURE_TEXT2SPEECH_KEY=os.getenv('AZURE_TEXT2SPEECH_KEY')
 
 #UPLOAD_FOLDER = os.path.join(os.getcwd(),"static","audio")
-UPLOAD_FOLDER = os.path.join("home","site","wwwroot","audio_responses")
+UPLOAD_FOLDER = "/" #os.path.join("home","site","wwwroot")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) 
 
 
