@@ -18,8 +18,10 @@
             <div class="result">
                 <h3>Azure Analysis</h3>
                 <p id="azureResult"></p>
-                <audio id="azureAudio" controls></audio>
-                <a id="downloadAudio" download="response.mp3">Download</a>
+                <audio id="azureAudio" controls style="display: none;"></audio>
+                <a id="downloadAudio" download="response_audio.mp3">Download Audio</a>
+                <!--audio id="azureAudio" controls></audio>
+                <a id="downloadAudio" download="response.mp3">Download</a-->
             </div>
             <div class="result">
                 <h3>GPT Response</h3>
@@ -31,7 +33,7 @@
     <script>
         function analyzeSentiment() {
             let text = document.getElementById("userInput").value;
-            
+
             fetch('/analyze', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -39,14 +41,33 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("azureResult").innerText = `Sentiment: ${data.azure.sentiment}, Positive Score: ${data.azure.positive_score}
-                                                , Neutral Score: ${data.azure.neutral_score}, Negative Score: ${data.azure.negative_score}`;
-                //document.getElementById("azureAudio").src = data.azure.audio_url;
-                //document.getElementById("downloadAudio").href = data.azure.audio_url;
+                if (data.error) {
+                    document.getElementById("azureResult").innerText = "Error: " + data.error;
+                    return;
+                }
+
+                // Display sentiment analysis results
+                document.getElementById("azureResult").innerText = `Sentiment: ${data.azure.sentiment}, 
+                    Positive Score: ${data.azure.positive_score}, 
+                    Neutral Score: ${data.azure.neutral_score}, 
+                    Negative Score: ${data.azure.negative_score}`;
+
+                // Display GPT response
                 document.getElementById("gptResult").innerText = data.gpt.response;
+
+                // Handle audio response
+                if (data.audio_url) {
+                    let audioElement = document.getElementById("azureAudio");
+                    audioElement.src = data.audio_url;
+                    audioElement.style.display = "block";
+                    document.getElementById("downloadAudio").href = data.audio_url;
+                } else {
+                    document.getElementById("azureAudio").style.display = "none";
+                }
             })
             .catch(error => console.error('Error:', error));
         }
+
     </script>
 </body>
 </html>
