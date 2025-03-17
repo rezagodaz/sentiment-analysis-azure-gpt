@@ -28,7 +28,6 @@ DEPLOYMENT_ID= "gpt-35-turbo"
 OPEN_AI_KEY=os.getenv('OPEN_AI_KEY')
 AZURE_TEXT2SPEECH_KEY=os.getenv('AZURE_TEXT2SPEECH_KEY')
 
-#UPLOAD_FOLDER = os.path.join(os.getcwd(),"static","audio")
 UPLOAD_FOLDER = os.getcwd()
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) 
 
@@ -202,11 +201,6 @@ def analyze():
     # Generate audio response
     audio_filename, audio_full_filename = generate_audio_response(azure_result['sentiment'], gpt_response)
     
-    #print(f"Audio file path: {audio_full_filename}")
-
-    # if not os.path.exists(audio_full_filename):
-    #     return jsonify({"error": "Audio generation failed"}), 500
-
     # Use only the filename, not the full path
     audio_url = url_for('get_audio', filename=audio_filename, _external=True, _scheme='https')
 
