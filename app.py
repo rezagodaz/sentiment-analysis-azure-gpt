@@ -142,7 +142,7 @@ def generate_response(sentiment, feedback):
     
     try:
         endpoint = os.getenv("ENDPOINT_URL", "https://rezagpt.openai.azure.com/")  
-        deployment =  DEPLOYMENT_ID 
+        deployment =  "gpt-35-turbo" 
 
         # Initialize Azure OpenAI Service client with key-based authentication    
         client = AzureOpenAI(  
@@ -150,7 +150,9 @@ def generate_response(sentiment, feedback):
             api_key=AZURE_GPT_KEY,  
             api_version="2024-05-01-preview",
         )
-
+        f = open("deploy.txt", "w")
+        f.write(f"deployment: {deployment}")
+        f.close()
         response = client.chat.completions.create(
             model=deployment,
             messages=[
