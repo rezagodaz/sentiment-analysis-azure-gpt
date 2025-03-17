@@ -51,6 +51,7 @@
                     Negative Score: ${data.azure.negative_score}`;
 
                 // Display GPT response
+                console.log("data.gpt.response:",data.gpt.response);
                 document.getElementById("gptResult").innerText = data.gpt.response;
                 console.log("speech:",data.speech);
                 console.log("GPT:",data.gpt_);
