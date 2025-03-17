@@ -227,7 +227,7 @@ def analyze():
 @app.route('/audio/<filename>')
 def get_audio(filename):
     """Serve the generated audio file."""
-    return send_from_directory("/", filename, mimetype="audio/wav")
+    return send_from_directory(UPLOAD_FOLDER, filename, mimetype="audio/wav")
 
 
 if __name__ == '__main__':
