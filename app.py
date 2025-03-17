@@ -24,7 +24,7 @@ AZURE_ENDPOINT=os.getenv('AZURE_ENDPOINT')
 AZURE_API_KEY=os.getenv('AZURE_API_KEY')
 AZURE_GPT_ENDPOINT=os.getenv('AZURE_GPT_ENDPOINT')
 AZURE_GPT_KEY=os.getenv('AZURE_GPT_KEY')
-DEPLOYMENT_ID=os.getenv("DEPLOYMENT_NAME", "gpt-35-turbo")
+DEPLOYMENT_ID= "gpt-35-turbo"
 OPEN_AI_KEY=os.getenv('OPEN_AI_KEY')
 AZURE_TEXT2SPEECH_KEY=os.getenv('AZURE_TEXT2SPEECH_KEY')
 
@@ -142,7 +142,7 @@ def generate_response(sentiment, feedback):
     
     try:
         endpoint = os.getenv("ENDPOINT_URL", "https://rezagpt.openai.azure.com/")  
-        deployment =  "gpt-35-turbo" 
+        deployment =  DEPLOYMENT_ID 
 
         # Initialize Azure OpenAI Service client with key-based authentication    
         client = AzureOpenAI(  
@@ -150,9 +150,6 @@ def generate_response(sentiment, feedback):
             api_key=AZURE_GPT_KEY,  
             api_version="2024-05-01-preview",
         )
-        f = open("deploy.txt", "w")
-        f.write(f"deployment: {deployment}")
-        f.close()
         response = client.chat.completions.create(
             model=deployment,
             messages=[
@@ -162,9 +159,6 @@ def generate_response(sentiment, feedback):
         )
         return response.choices[0].message.content
     except Exception as e:
-        f = open("error.txt", "w")
-        f.write(f"GPT Response Error: {str(e)}")
-        f.close()
         logger.error(f"GPT Response Error: {str(e)}")
         return "Error generating response."
     
@@ -206,8 +200,7 @@ def analyze():
     gpt_response = generate_response(azure_result["sentiment"], text)
 
     # Generate audio response
-    #audio_filename, audio_full_filename = generate_audio_response(azure_result['sentiment'], gpt_response)
-
+    audio_filename, audio_full_filename = generate_audio_response(azure_result['sentiment'], gpt_response)
     
     #print(f"Audio file path: {audio_full_filename}")
 
@@ -215,12 +208,12 @@ def analyze():
     #     return jsonify({"error": "Audio generation failed"}), 500
 
     # Use only the filename, not the full path
-    #audio_url = url_for('get_audio', filename=audio_filename, _external=True, _scheme='https')
+    audio_url = url_for('get_audio', filename=audio_filename, _external=True, _scheme='https')
 
     return jsonify({
         "azure": azure_result,
         "gpt": {"response": gpt_response},
-        #"audio_url": audio_url
+        "audio_url": audio_url
     })    
 
 @app.route('/audio/<filename>')
