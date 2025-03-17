@@ -78,6 +78,8 @@ def get_sentiment_result_from_azure(user_data):
 def generate_audio_response(sentiment, text):
     """
     Converts sentiment response to speech using Azure Speech API and saves the output as an audio file.
+    The audio is adjusted with the sentiment and emotions.
+    
     Args:
         sentiment (str): The sentiment label (e.g., "positive", "negative", "neutral").
         text (str): The text to convert to speech.
