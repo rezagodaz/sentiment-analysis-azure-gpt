@@ -212,7 +212,7 @@ def analyze():
     #     return jsonify({"error": "Audio generation failed"}), 500
 
     # Use only the filename, not the full path
-    audio_url = url_for('get_audio', filename=audio_filename, _external=True)#, _scheme='https')
+    audio_url = url_for('get_audio', filename=audio_filename, _external=True, _scheme='https')
 
     return jsonify({
         "azure": azure_result,
