@@ -217,7 +217,7 @@ def analyze():
     return jsonify({
         "azure": azure_result,
         "gpt": {"response": gpt_response},
-        "audio_url": audio_url
+        #"audio_url": audio_url
     })    
 
 @app.route('/audio/<filename>')
