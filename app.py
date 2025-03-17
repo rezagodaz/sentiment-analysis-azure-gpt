@@ -142,7 +142,6 @@ def generate_response(sentiment, feedback):
     
     try:
         endpoint = os.getenv("ENDPOINT_URL", "https://rezagpt.openai.azure.com/")  
-        #deployment = os.getenv("DEPLOYMENT_NAME", "gpt-4o-mini-audio-preview-2")  
         deployment =  DEPLOYMENT_ID 
 
         # Initialize Azure OpenAI Service client with key-based authentication    
@@ -154,7 +153,6 @@ def generate_response(sentiment, feedback):
 
         response = client.chat.completions.create(
             model=deployment,
-            #messages=chat_prompt,
             messages=[
                  {"role": "system", "content": "You are a customer support assistant."},
                  {"role": "user", "content": prompt}
@@ -218,9 +216,6 @@ def analyze():
     return jsonify({
         "azure": azure_result,
         "gpt": {"response": gpt_response},
-        "speech": AZURE_TEXT2SPEECH_KEY,
-        "gpt_": AZURE_GPT_KEY,
-        "end": AZURE_GPT_ENDPOINT,
         #"audio_url": audio_url
     })    
 

@@ -53,9 +53,6 @@
                 // Display GPT response
                 console.log("data.gpt.response:",data.gpt.response);
                 document.getElementById("gptResult").innerText = data.gpt.response;
-                console.log("speech:",data.speech);
-                console.log("GPT:",data.gpt_);
-                console.log("endpoint:",data.end);
                 // Handle audio response
                 if (data.audio_url) {
                     let audioElement = document.getElementById("azureAudio");
