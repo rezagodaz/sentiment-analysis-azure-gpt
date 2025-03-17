@@ -160,6 +160,9 @@ def generate_response(sentiment, feedback):
         )
         return response.choices[0].message.content
     except Exception as e:
+        f = open("error.txt", "w")
+        f.write(f"GPT Response Error: {str(e)}")
+        f.close()
         logger.error(f"GPT Response Error: {str(e)}")
         return "Error generating response."
     
@@ -212,7 +215,6 @@ def analyze():
     # Use only the filename, not the full path
     #audio_url = url_for('get_audio', filename=audio_filename, _external=True, _scheme='https')
 
-    print(f"AZURE_TEXT2SPEECH_KEY {AZURE_TEXT2SPEECH_KEY}")
     return jsonify({
         "azure": azure_result,
         "gpt": {"response": gpt_response},
