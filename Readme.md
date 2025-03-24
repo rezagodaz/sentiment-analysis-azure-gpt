@@ -59,7 +59,7 @@ Create a `.env` file in the project directory and add your Azure and OpenAI keys
 ```text
 AZURE_ENDPOINT="https://your-azure-endpoint.cognitiveservices.azure.com/"
 AZURE_API_KEY="your-azure-api-key"
-OPENAI_API_KEY="your-openai-api-key"
+AZURE_TEXT2SPEECH_KEY="your-azure-text-2-speech-key"
 ```
 
 Load environment variables automatically using `python-dotenv`.
