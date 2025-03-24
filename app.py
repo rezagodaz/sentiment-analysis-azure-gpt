@@ -1,16 +1,10 @@
 import os  
-import base64
 import logging
 from flask import Flask, render_template, request, jsonify, url_for, send_from_directory
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
-from openai import OpenAI
-from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import SystemMessage, UserMessage
-from azure.identity import DefaultAzureCredential
 from openai import AzureOpenAI  
-from azure.identity import DefaultAzureCredential, get_bearer_token_provider  
-from azure.cognitiveservices.speech import SpeechConfig, SpeechSynthesizer, AudioConfig, audio, ResultReason, CancellationReason
+from azure.cognitiveservices.speech import SpeechConfig, SpeechSynthesizer, audio, ResultReason, CancellationReason
 
 # Final version
 # According to best practices, keys should not be hardcoded into the code. 
