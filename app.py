@@ -201,7 +201,9 @@ def analyze():
     # Generate audio response
     audio_filename, audio_full_filename = generate_audio_response(azure_result['sentiment'], gpt_response)
     
-    # Use only the filename, not the full path
+    # Use only the filename, not the full path. 
+    # For executing on your local machine remove the last argument as the following: 
+    # audio_url = url_for('get_audio', filename=audio_filename, _external=True)
     audio_url = url_for('get_audio', filename=audio_filename, _external=True, _scheme='https')
 
     return jsonify({
