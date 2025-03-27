@@ -17,6 +17,7 @@ load_dotenv()
 AZURE_ENDPOINT=os.getenv('AZURE_ENDPOINT')
 AZURE_API_KEY=os.getenv('AZURE_API_KEY')
 AZURE_GPT_KEY=os.getenv('AZURE_GPT_KEY')
+AZURE_GPT_ENDPOINT = os.getenv('AZURE_GPT_ENDPOINT')
 DEPLOYMENT_ID= "gpt-35-turbo"
 AZURE_TEXT2SPEECH_KEY=os.getenv('AZURE_TEXT2SPEECH_KEY')
 
@@ -134,7 +135,7 @@ def generate_response(sentiment, feedback):
     prompt += response_type.get(sentiment, "Generate a general response.")
     
     try:
-        endpoint = os.getenv("ENDPOINT_URL", "https://rezagpt.openai.azure.com/")  
+        endpoint = AZURE_GPT_ENDPOINT 
         deployment =  DEPLOYMENT_ID 
 
         # Initialize Azure OpenAI Service client with key-based authentication    
