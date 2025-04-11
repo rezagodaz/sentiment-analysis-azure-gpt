@@ -2,8 +2,6 @@
 
 This web application allows users to submit feedback, analyze its sentiment using Azure Cognitive Services, and receive AI-generated responses using GPT-3.5. Built with Python and Flask, it features a simple interface for feedback submission and sentiment analysis. The application also integrates text-to-speech services to provide audio responses that reflect the detected sentiment and emotions. Users can view sentiment results, access the LLM-generated response, and play or download the corresponding audio. Designed with a focus on functionality and clean code, the project ensures an intuitive and efficient user experience.
 
-**Try it live here:** [SentimentGPT Web App](https://sentimentgpt-hhcyf0bmh5d5dbbh.eastus2-01.azurewebsites.net/)
-
 ## Features
 
 - Uses Azure AI Text Analytics to classify sentiment as Positive, Neutral, or Negative.
